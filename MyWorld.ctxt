@@ -9,4 +9,6 @@ comment3.params=
 comment3.target=void\ act()
 comment4.params=m
 comment4.target=Cartas\ mostraObjects(greenfoot.MouseInfo)
-numComments=5
+comment5.params=min\ max
+comment5.target=int\ range(int,\ int)
+numComments=6

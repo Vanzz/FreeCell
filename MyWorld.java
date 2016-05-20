@@ -1,5 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
+
 /**
  * Write a description of class MyWorld here.
  * 
@@ -20,7 +21,7 @@ public class MyWorld extends World
 
     public MyWorld(){   
         super(800, 600, 1); 
-        // precisa inserir 8 pilhas pra startar as cartas e 8 pra segurar as pilhas em ordem.
+
         baralho = new Stack();
         barAux = new Stack();
     }
@@ -45,11 +46,10 @@ public class MyWorld extends World
             node2.setCarta(d);
             node3.setCarta(h);
             node4.setCarta(s);
-
-            baralho.inserir(node1);
-            baralho.inserir(node2);
-            baralho.inserir(node3);
-            baralho.inserir(node4);
+                    baralho.inserir(node1);
+                    baralho.inserir(node2);
+                    baralho.inserir(node3);
+                    baralho.inserir(node4);
 
             addObject(c, 150+(i/2), 150+(i/2));
             addObject(d, 150+(i/2), 150+(i/2));
@@ -57,7 +57,7 @@ public class MyWorld extends World
             addObject(s, 150+(i/2), 150+(i/2));
         }
     }
-    
+
     public void act(){
         todos = getObjects(null);
 
@@ -100,5 +100,11 @@ public class MyWorld extends World
             }        
         }
         return null;
+    }
+
+    public int range(int min, int max)
+    {
+        int range = Math.abs(max - min) + 1;     
+        return (int)(Math.random() * range) + (min <= max ? min : max);
     }
 }
