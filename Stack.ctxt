@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=Stack
+comment1.params=
+comment1.target=Stack()
+comment2.params=_node
+comment2.target=void\ inserir(Node)
+comment3.params=
+comment3.target=void\ remover()
+comment4.params=
+comment4.target=void\ listar()
+comment5.params=
+comment5.target=Node\ getNode()
+comment6.params=
+comment6.target=int\ getSize()
+comment7.params=
+comment7.target=boolean\ isEmpty()
+numComments=8

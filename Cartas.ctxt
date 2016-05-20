@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=Cartas
+comment1.params=
+comment1.target=Cartas()
+comment2.params=imgid\ _flipped
+comment2.target=Cartas(java.lang.String,\ boolean)
+comment3.params=_flipped
+comment3.target=void\ flip(boolean)
+comment4.params=
+comment4.target=boolean\ getFlipped()
+comment5.params=a
+comment5.target=void\ isLast(boolean)
+comment6.params=
+comment6.target=boolean\ isLast()
+comment7.params=
+comment7.target=java.lang.String\ toString()
+numComments=8
