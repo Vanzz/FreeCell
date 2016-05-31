@@ -52,7 +52,10 @@ public class Stack
             System.out.println(" // size "+getSize());
         }
     }
-
+    
+    /**
+     * Get last node
+     */
     public Node getNode(){
         Node aux = inicio;
         while(aux.getProximo() != null){
@@ -76,7 +79,7 @@ public class Stack
 
         return size;
     }
-
+    
     public boolean isEmpty(){
         if(inicio == null){
             return true;

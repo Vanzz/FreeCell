@@ -10,6 +10,7 @@ comment4.params=
 comment4.target=void\ listar()
 comment5.params=
 comment5.target=Node\ getNode()
+comment5.text=\n\ Get\ last\ node\n
 comment6.params=
 comment6.target=int\ getSize()
 comment7.params=
