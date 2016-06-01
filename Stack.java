@@ -1,7 +1,7 @@
 public class Stack  
 {
     private Node inicio;
-
+    
     public Stack(){
         this.inicio = null;
     }
@@ -29,6 +29,7 @@ public class Stack
                 inicio = null;
             }else if (aux.getProximo().getProximo() == null){
                 inicio.setProximo(null);
+                inicio.getCarta().isLast(true);
             }else{
                 while(aux.getProximo().getProximo() != null){
                     aux = aux.getProximo();

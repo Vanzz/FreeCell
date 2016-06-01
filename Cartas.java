@@ -1,48 +1,38 @@
 import greenfoot.*;
 public class Cartas extends Actor
 {
-    private boolean flipped = false;
-    private String imagem = "";
     private boolean isLast = false;
-    private boolean ww = false;
+    private boolean isBlack = false;
+    private String imagem = "";
+    private Stack stack;
     
     public Cartas(){
         GreenfootImage img;
-        
         img = new GreenfootImage("images/Backborder.png");
         img.scale(70, 100);
         setImage(img);
     }
     
-    public Cartas(String imgid, boolean _flipped){
+    public Cartas(String imgid, boolean _isBlack){
         this.imagem = imgid;
-        this.flipped = _flipped;
-        GreenfootImage img;
+        this.isBlack = _isBlack;
         
-        if(flipped){
-            img = new GreenfootImage("images/" +imgid+".png");
-        }else{
-            img = new GreenfootImage("images/Backborder.png");
-        }
+        GreenfootImage img;
+        img = new GreenfootImage("images/" +imgid+".png");
         img.scale(70, 100);
         setImage(img);
     }
     
-    public void flip(boolean _flipped){
-        this.flipped = _flipped;
-        GreenfootImage img;
-        
-        if(flipped){
-            img = new GreenfootImage("images/" +imagem+".png");
-        }else{
-            img = new GreenfootImage("images/Backborder.png");
-        }
-        img.scale(70, 100);
-        setImage(img);
+    public boolean isBlack(){
+        return isBlack;
     }
     
-    public boolean getFlipped(){
-        return flipped;
+    public void setStack(Stack _stack){
+        this.stack = _stack;
+    }
+    
+    public Stack getStack(){
+        return stack;
     }
     
     public String getImagem(){

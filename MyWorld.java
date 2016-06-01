@@ -9,21 +9,19 @@ import java.util.*;
  */
 public class MyWorld extends World
 {
-    Stack baralho;
-    Stack barAux;
-    Node aux;
-
     Stack topOne, topTwo, topThree, topFour; 
     Stack botOne, botTwo, botThree, botFour, botFive, botSix, botSeven, botEight;
+
+    Node aux;
 
     List<Cartas> todos = getObjects(null);
     Cartas a;
 
     boolean listou;
-    boolean removeu;
+    boolean salvarL;
+    int pX, pY;
 
-    ArrayList<Cartas> rList; 
-    ArrayList<Node> stacksInferiores;
+    ArrayList<Cartas> rList;
 
     public MyWorld(){   
         super(800, 600, 1); 
@@ -34,7 +32,7 @@ public class MyWorld extends World
         topThree = new Stack();
         topFour = new Stack();
 
-        // //Creating bottom stacks
+        //Creating bottom stacks
         botOne = new Stack();
         botTwo = new Stack();
         botThree = new Stack();
@@ -43,24 +41,18 @@ public class MyWorld extends World
         botSix = new Stack();
         botSeven = new Stack();
         botEight = new Stack();
-
-        // baralho = new Stack();
-        // barAux = new Stack();
     }
 
     public void started(){
         rList = new ArrayList<Cartas>();
         listou = false;
-        removeu = false;
         int espacamento = 70;
-
-        inicializarStacks();
 
         for(int i = 1; i <= 13; i++)
         {
             Cartas c = new Cartas(i+"C", true);
-            Cartas d = new Cartas(i+"D", true);
-            Cartas h = new Cartas(i+"H", true);
+            Cartas d = new Cartas(i+"D", false);
+            Cartas h = new Cartas(i+"H", false);
             Cartas s = new Cartas(i+"S", true);
 
             rList.add(c);
@@ -68,85 +60,79 @@ public class MyWorld extends World
             rList.add(h);
             rList.add(s);
         }
-        //System.out.println(""+rList.toString());
 
         randomSpread();
-        
-        // addObject(new Cartas(), 90 + espacamento, 285);
-        // addObject(new Cartas(), 160 + espacamento, 285);
-        // addObject(new Cartas(), 230 + espacamento, 285);
-        // addObject(new Cartas(), 300 + espacamento, 285);
-        // addObject(new Cartas(), 370 + espacamento, 285);
-        // addObject(new Cartas(), 440 + espacamento, 285);
-        // addObject(new Cartas(), 510 + espacamento, 285);
-        // addObject(new Cartas(), 580 + espacamento, 285);
-        
-        // for(int i = 1; i <= 8; i++){
-            // addObject(new Cartas(), 20 + (70*i) + espacamento, 285);
-        // }
-
-        // //Criação do baralho
-        // for(int i = 1; i <= 13; i++){
-        // Cartas c = new Cartas(i+"C", false);
-        // Cartas d = new Cartas(i+"D", false);
-        // Cartas h = new Cartas(i+"H", false);
-        // Cartas s = new Cartas(i+"S", false);
-
-        // Node node1 = new Node();
-        // Node node2 = new Node();
-        // Node node3 = new Node();
-        // Node node4 = new Node();
-
-        // node1.setCarta(c);
-        // node2.setCarta(d);
-        // node3.setCarta(h);
-        // node4.setCarta(s);
-
-        // baralho.inserir(node1);
-        // baralho.inserir(node2);
-        // baralho.inserir(node3);
-        // baralho.inserir(node4);
-
-        // addObject(c, 150+(i/2), 250+(i/2));
-        // addObject(d, 150+(i/2), 250+(i/2));
-        // addObject(h, 150+(i/2), 250+(i/2));
-        // addObject(s, 150+(i/2), 250+(i/2));
-        // }
     }
 
     public void act(){
         todos = getObjects(null);
-        if(Greenfoot.getMouseInfo() != null)
-        System.out.println("x:"+Greenfoot.getMouseInfo().getX()+" y:"+Greenfoot.getMouseInfo().getY());
+
+        // if(Greenfoot.getMouseInfo() != null)
+        // System.out.println("x:"+Greenfoot.getMouseInfo().getX()+" y:"+Greenfoot.getMouseInfo().getY());
 
         if(Greenfoot.mouseDragged(null)){
             if(mostraObjects(Greenfoot.getMouseInfo()) != null){
                 a = mostraObjects(Greenfoot.getMouseInfo());
-                if(a.isLast()){
+                if(!salvarL){
+                    pX = a.getX();
+                    pY = a.getY();
+                    salvarL = true;
+                }
+                if(a.isLast() && isBottom(a)){
                     a.setLocation(Greenfoot.getMouseInfo().getX(), Greenfoot.getMouseInfo().getY());
-                    //aux = baralho.getNode();
-                    removeu = false;
+                    aux = a.getStack().getNode();
                 }
             }
         }
 
-        if(Greenfoot.mouseDragEnded(a) && !removeu){
-            removeu = true;
-            // if(!a.getFlipped()){
-            // aux.getCarta().flip(true);
-            // if(a.isCollider()){
-            // barAux.inserir(aux);
-            // baralho.remover();
-            // a.setLocation(35, 50);
-            // }
-            // }
-            listou = false;
-            removeu = false;
+        if(Greenfoot.mouseDragEnded(a)){
+            if(mostraObjects(Greenfoot.getMouseInfo()) != null){
+                if(Greenfoot.getMouseInfo().getX() > 409 && Greenfoot.getMouseInfo().getX() < 481 &&
+                Greenfoot.getMouseInfo().getY() < 240 && Greenfoot.getMouseInfo().getY() > 135){
+                    topOne.inserir(aux);
+                    a.getStack().remover();
+                    aux.getCarta().setStack(topOne);
+                    a.setLocation(440, 185);
+                }else if(Greenfoot.getMouseInfo().getX() > 481 && Greenfoot.getMouseInfo().getX() < 546 &&
+                Greenfoot.getMouseInfo().getY() < 240 && Greenfoot.getMouseInfo().getY() > 135){
+                    topTwo.inserir(aux);
+                    a.getStack().remover();
+                    aux.getCarta().setStack(topTwo);
+                    a.setLocation(510, 185);
+                }else if(Greenfoot.getMouseInfo().getX() > 551 && Greenfoot.getMouseInfo().getX() < 611 &&
+                Greenfoot.getMouseInfo().getY() < 240 && Greenfoot.getMouseInfo().getY() > 135){
+                    topThree.inserir(aux);
+                    a.getStack().remover();
+                    aux.getCarta().setStack(topThree);
+                    a.setLocation(580, 185);
+                }else if(Greenfoot.getMouseInfo().getX() > 621 && Greenfoot.getMouseInfo().getX() < 681 &&
+                Greenfoot.getMouseInfo().getY() < 240 && Greenfoot.getMouseInfo().getY() > 135){
+                    topFour.inserir(aux);
+                    a.getStack().remover();
+                    aux.getCarta().setStack(topFour);
+                    a.setLocation(650, 185);
+                }else{
+                    a.setLocation(pX, pY);
+                }
+                salvarL = false;
+                listou = false;
+            }
         }
 
         if(Greenfoot.isKeyDown("L") && !listou){
-            // baralho.listar();
-            // barAux.listar();
+            topOne.listar();
+            topTwo.listar();
+            topThree.listar();
+            topFour.listar();
+
+            botOne.listar();
+            botTwo.listar();
+            botThree.listar();
+            botFour.listar();
+            botFive.listar();
+            botSix.listar();
+            botSeven.listar();
+            botEight.listar();
 
             listou = true;
         }
@@ -177,40 +163,67 @@ public class MyWorld extends World
         for(int i = 0; i < 8 ;i++){
             maxStackIndex = 10-i;
             stackIndex = 0;
-            while(stackIndex <maxStackIndex){
+            int espaçamento = 0; 
+            while(stackIndex < maxStackIndex){
                 if(rList.size() == 0) break;
 
                 randomIndex = range(0,rList.size()-1);
-                stacksInferiores.get(i).getStack().inserir(new Node(rList.get(randomIndex)));
-                addObject(rList.get(randomIndex),stacksInferiores.get(i).getX(),150);
-                rList.remove(rList.get(randomIndex));
+                Node a = new Node(rList.get(randomIndex));
 
                 if(i == 0){
-                    Node a = new Node(rList.get(randomIndex));
                     botOne.inserir(a);
-                    addObject(a.getCarta(), 90 + 70, 285);
+                    rList.get(randomIndex).setStack(botOne);
+                    addObject(a.getCarta(), 90 + 70, 285 + espaçamento);
+                    espaçamento += 20;
+                }else if(i == 1){
+                    botTwo.inserir(a);
+                    rList.get(randomIndex).setStack(botTwo);
+                    addObject(a.getCarta(), 160 + 70, 285 + espaçamento);
+                    espaçamento += 20;
+                }else if(i == 2){
+                    botThree.inserir(a);
+                    rList.get(randomIndex).setStack(botThree);
+                    addObject(a.getCarta(), 230 + 70, 285 + espaçamento);
+                    espaçamento += 20;
+                }else if(i == 3){
+                    botFour.inserir(a);
+                    rList.get(randomIndex).setStack(botFour);
+                    addObject(a.getCarta(), 300 + 70, 285 + espaçamento);
+                    espaçamento += 20;
+                }else if(i == 4){
+                    botFive.inserir(a);
+                    rList.get(randomIndex).setStack(botFive);
+                    addObject(a.getCarta(), 370 + 70, 285 + espaçamento);
+                    espaçamento += 20;
+                }else if(i == 5){
+                    botSix.inserir(a);
+                    rList.get(randomIndex).setStack(botSix);
+                    addObject(a.getCarta(), 440 + 70, 285 + espaçamento);
+                    espaçamento += 20;
+                }else if(i == 6){
+                    botSeven.inserir(a);
+                    rList.get(randomIndex).setStack(botSeven);
+                    addObject(a.getCarta(), 510 + 70, 285 + espaçamento);
+                    espaçamento += 20;
+                }else if(i == 7){
+                    botEight.inserir(a);
+                    rList.get(randomIndex).setStack(botEight);
+                    addObject(a.getCarta(), 580 + 70, 285 + espaçamento);
+                    espaçamento += 20;
                 }
-                
-                stackIndex++;
 
-                if(maxStackIndex == 3 && stackIndex == 2){
-                    randomIndex = range(0,rList.size()-1);
-                    stacksInferiores.get(i).getStack().inserir(new Node(rList.get(randomIndex)));
-                    addObject(rList.get(randomIndex),/*x a ser modificado*/150, 150);
-                    rList.remove(rList.get(randomIndex));
-                }
+                rList.remove(rList.get(randomIndex));
+                stackIndex++;
             }
         }
     }
 
-    public void inicializarStacks(){
-        //stacks superiores
-        //1 ( auxStack );
-        //2 ( win-condition );
-        //stacksInferiores
-        stacksInferiores = new ArrayList<Node>();
-        for(int i=1; i <= 8;i++){
-            stacksInferiores.add(new Node(new Stack(),10 + (150*i), 100));
+    public boolean isBottom(Cartas c){
+        if(c.getStack() != topOne && c.getStack() != topTwo && 
+        c.getStack() != topThree && c.getStack() != topFour){
+            return true;
+        }else{
+            return false;
         }
     }
 }
