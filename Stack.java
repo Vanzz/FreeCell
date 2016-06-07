@@ -1,7 +1,7 @@
 public class Stack  
 {
     private Node inicio;
-    
+
     public Stack(){
         this.inicio = null;
     }
@@ -53,16 +53,19 @@ public class Stack
             System.out.println(" // size "+getSize());
         }
     }
-    
+
     /**
      * Get last node
      */
     public Node getNode(){
-        Node aux = inicio;
-        while(aux.getProximo() != null){
-            aux = aux.getProximo();
+        if(inicio != null){
+            Node aux = inicio;
+            while(aux.getProximo() != null){
+                aux = aux.getProximo();
+            }
+            return aux;
         }
-        return aux;
+        return null;
     }
 
     public int getSize(){
@@ -80,7 +83,7 @@ public class Stack
 
         return size;
     }
-    
+
     public boolean isEmpty(){
         if(inicio == null){
             return true;
