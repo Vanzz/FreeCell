@@ -13,9 +13,10 @@ public class Cartas extends Actor
         setImage(img);
     }
     
-    public Cartas(String imgid, boolean _isBlack){
+    public Cartas(String imgid, boolean _isBlack, Stack _stack){
         this.imagem = imgid;
         this.isBlack = _isBlack;
+        this.stack = _stack;
         
         GreenfootImage img;
         img = new GreenfootImage("images/" +imgid+".png");

@@ -1,14 +1,22 @@
 public class Stack  
 {
     private Node inicio;
+    private String naipe;
+    private String nome;
 
     public Stack(){
         this.inicio = null;
+    }
+    
+    public Stack(String _nome){
+        this.inicio = null;
+        this.nome = _nome;
     }
 
     public void inserir(Node _node){
         if(isEmpty()){
             inicio = _node;
+            inicio.getCarta().isLast(true);
         }else{
             Node aux = inicio;
             while(aux.getProximo() != null){
@@ -45,6 +53,7 @@ public class Stack
         if(aux == null){
             System.out.println("Listar : Pilha vazia!");
         }else{
+            System.out.print(""+nome+": ");
             while(aux.getProximo() != null){
                 System.out.print(aux.getNode()+"->");
                 aux = aux.getProximo();
@@ -83,11 +92,23 @@ public class Stack
 
         return size;
     }
+    
+    public void setNaipe(String _naipe){
+        this.naipe = _naipe;
+    }
+    
+    public String getNaipe(){
+        return naipe;
+    }
 
     public boolean isEmpty(){
         if(inicio == null){
             return true;
         }
         return false;
+    }
+    
+    public String toString(){
+        return ""+nome;
     }
 }
